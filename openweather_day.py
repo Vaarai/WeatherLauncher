@@ -5,6 +5,9 @@ import subprocess
 
 # font from => https://github.com/erikflowers/weather-icons/tree/master/font
 
+# used case:
+# ./openweather_day.py --get_weather_unicode --api_key <API_KEY> --city $(./whereami_city.sh)  --ccode $(./whereami_countrycode.sh)
+
 def icoToUnicode(s):
     if s == "01d":
         return "\uF00D"
