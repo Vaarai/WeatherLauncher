@@ -5,7 +5,7 @@ import subprocess
 
 # font from => https://github.com/erikflowers/weather-icons/tree/master/font
 
-# used case:
+# use case:
 # ./openweather_day.py --get_weather_unicode --api_key <API_KEY> --city $(./whereami_city.sh)  --ccode $(./whereami_countrycode.sh)
 
 def icoToUnicode(s):
@@ -64,6 +64,8 @@ def process (args):
         print(int(weather_values.get_wind()['speed']))
     if args.get_weather_unicode:
         print(icoToUnicode(weather_values.get_weather_icon_name()))
+    if args.is_night:
+        print(weather_values.get_weather_icon_name()[2])
     
 
 
@@ -77,6 +79,7 @@ parser.add_argument('--get_weather_icon',help='Get weekday.',action='store_true'
 parser.add_argument('--get_wind_angle',help='Get wind angle.',action='store_true')
 parser.add_argument('--get_wind_force',help='Get wind force.',action='store_true')
 parser.add_argument('--get_weather_unicode',help='Get weather in unicode.',action='store_true')
+parser.add_argument('--is_night',help='Get day/night.',action='store_true')
 args = parser.parse_args()
 
 process(args)

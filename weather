@@ -1,0 +1,21 @@
+#!/bin/bash
+
+DIR="/home/$USER/Workspace/WeatherLauncher"
+API="81baa8fffa0ec25a9a2d825c57d4adfe"
+
+$DIR/openweather_day.py --get_weather_unicode --api_key $API --city $($DIR/whereami_city.sh)  --ccode $($DIR/whereami_countrycode.sh)
+
+day_image="/home/$USER/Images/Manjaro/manjaro_end.png"
+night_image="/home/$USER/Images/Manjaro/manjaro_end_2.png"
+day_night=$($DIR/openweather_day.py --is_night --api_key $API --city $($DIR/whereami_city.sh)  --ccode $($DIR/whereami_countrycode.sh))
+current=$(xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitoreDP1/workspace0/last-image)
+
+if [ $day_night == "d" ] && [ $current != $day_image ]
+then
+    $(xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitoreDP1/workspace0/last-image --set $day_image)
+else 
+    if [ $day_night == "n" ] && [ $current != $night_image ]
+    then
+        $(xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitoreDP1/workspace0/last-image --set $night_image)
+    fi
+fi
